@@ -1,2 +1,2 @@
-# alte
-Personal interactive world
+# Alté
+Personal alternative reality
