@@ -32,6 +32,10 @@ function init(){
     controls.minDistance = 100;
     controls.maxDistance = 500;
     controls.maxPolarAngle = Math.PI / 2;
+    controls.addEventListener("change", (e) => {
+        const {x, y, z} = camera.position;
+        console.log({x, y, z})
+    })
 
     const geometry = new THREE.CylinderGeometry(0, 10, 30, 4, 1);
     // const texture = new THREE.TextureLoader().load(images["wood-skin"]);
