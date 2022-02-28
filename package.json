@@ -1,7 +1,7 @@
 {
-    "name": "three-web",
+    "name": "alte",
     "version": "1.0.0",
-    "description": "Three JS Learning Demo",
+    "description": "Personal alternative reality",
     "main": "index.html",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
