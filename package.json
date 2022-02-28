@@ -1,0 +1,20 @@
+{
+    "name": "three-web",
+    "version": "1.0.0",
+    "description": "Three JS Learning Demo",
+    "main": "index.html",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "parcel build index.html",
+        "dev": "parcel index.html"
+    },
+    "keywords": [],
+    "author": "Femi Ayodeji <femidotayodeji@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "parcel": "1.12.3"
+    },
+    "dependencies": {
+        "three": "^0.135.0"
+    }
+}
