@@ -2,8 +2,9 @@ import * as THREE from 'three'
 import images from "../assets/*.jpg";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { io } from "socket.io-client";
+import Crystal from "./crystal";
 
-let camera, controls, scene, renderer, socket;
+let camera, controls, scene, group, renderer, socket;
 
 const blind = document.getElementById("blind");
 
@@ -48,31 +49,29 @@ function init(){
         }
     });
 
-    const geometry = new THREE.CylinderGeometry(0, 10, 30, 4, 1);
-    const material = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true });
+    const pyramidGeometry = new THREE.CylinderGeometry(0, 10, 30, 4, 1);
+    const pyramidMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true });
     for (let i = 0; i < 500; i ++) {
 
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.x = Math.random() * 1600 - 800;
-        mesh.position.y = 0;
-        mesh.position.z = Math.random() * 1600 - 800;
-        mesh.updateMatrix();
-        mesh.matrixAutoUpdate = false;
-        scene.add(mesh);
+        const pyramidMesh = new THREE.Mesh(pyramidGeometry, pyramidMaterial);
+        pyramidMesh.position.x = Math.random() * 1600 - 800;
+        pyramidMesh.position.y = 0;
+        pyramidMesh.position.z = Math.random() * 1600 - 800;
+        pyramidMesh.updateMatrix();
+        pyramidMesh.matrixAutoUpdate = false;
+        scene.add(pyramidMesh);
     }
 
-    const texture = new THREE.TextureLoader().load(images["wood-skin"]);
+    const boxTexture = new THREE.TextureLoader().load(images["wood-skin"]);
     const boxGeometry = new THREE.BoxGeometry( 100, 150, 200 );
-    const boxMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+    const boxMaterial = new THREE.MeshBasicMaterial( { map: boxTexture } );
     const box = new THREE.Mesh( boxGeometry, boxMaterial );
+    box.position.x = -500;
     box.position.y = 60;
     box.updateMatrix();
     scene.add(box);
 
-    // renderer = new THREE.WebGLRenderer( { antialias: true } );
-    // renderer.setPixelRatio( window.devicePixelRatio );
-    // renderer.setSize( window.innerWidth, window.innerHeight );
-    // document.body.appendChild( renderer.domElement );
+    new Crystal(scene, group);
 
     const dirLight1 = new THREE.DirectionalLight(0xffffff);
     dirLight1.position.set(1, 1, 1);
