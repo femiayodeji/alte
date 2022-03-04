@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import images from "../assets/*.jpg";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { io } from "socket.io-client";
 
 let camera, controls, scene, renderer, socket;
 
