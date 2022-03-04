@@ -5,12 +5,13 @@ import { io } from "socket.io-client";
 
 let camera, controls, scene, renderer, socket;
 
+const blind = document.getElementById("blind");
+
 init();
 animate();
 
 function init(){
     socket = io("https://altecore.herokuapp.com");
-
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xcccccc)
     scene.fog = new THREE.FogExp2(0xcccccc, 0.002)
@@ -41,7 +42,11 @@ function init(){
     })
 
     socket.on('camera_move', (data) => {
-        console.log("Camera: ", data)
+        console.log(blind.checked);
+        if(blind.checked){
+            camera.position.set(data.x, data.y, data.z);
+            console.log("Camera: ", data)
+        }
     });
 
     const geometry = new THREE.CylinderGeometry(0, 10, 30, 4, 1);
