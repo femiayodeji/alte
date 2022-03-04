@@ -42,7 +42,6 @@ function init(){
     })
 
     socket.on('camera_move', (data) => {
-        console.log(blind.checked);
         if(blind.checked){
             camera.position.set(data.x, data.y, data.z);
             console.log("Camera: ", data)
@@ -50,8 +49,6 @@ function init(){
     });
 
     const geometry = new THREE.CylinderGeometry(0, 10, 30, 4, 1);
-    // const texture = new THREE.TextureLoader().load(images["wood-skin"]);
-    // const material = new THREE.MeshBasicMaterial({ map: texture });
     const material = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true });
     for (let i = 0; i < 500; i ++) {
 
@@ -63,6 +60,19 @@ function init(){
         mesh.matrixAutoUpdate = false;
         scene.add(mesh);
     }
+
+    const texture = new THREE.TextureLoader().load(images["wood-skin"]);
+    const boxGeometry = new THREE.BoxGeometry( 100, 150, 200 );
+    const boxMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+    const box = new THREE.Mesh( boxGeometry, boxMaterial );
+    box.position.y = 60;
+    box.updateMatrix();
+    scene.add(box);
+
+    // renderer = new THREE.WebGLRenderer( { antialias: true } );
+    // renderer.setPixelRatio( window.devicePixelRatio );
+    // renderer.setSize( window.innerWidth, window.innerHeight );
+    // document.body.appendChild( renderer.domElement );
 
     const dirLight1 = new THREE.DirectionalLight(0xffffff);
     dirLight1.position.set(1, 1, 1);
