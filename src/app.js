@@ -2,12 +2,14 @@ import * as THREE from 'three'
 import images from "../assets/*.jpg";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-let camera, controls, scene, renderer;
+let camera, controls, scene, renderer, socket;
 
 init();
 animate();
 
 function init(){
+    socket = io("https://altecore.herokuapp.com");
+
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xcccccc)
     scene.fog = new THREE.FogExp2(0xcccccc, 0.002)
@@ -34,8 +36,12 @@ function init(){
     controls.maxPolarAngle = Math.PI / 2;
     controls.addEventListener("change", (e) => {
         const {x, y, z} = camera.position;
-        console.log({x, y, z})
+        socket.emit('camera_move', {x,y,z});
     })
+
+    socket.on('camera_move', (data) => {
+        console.log("Camera: ", data)
+    });
 
     const geometry = new THREE.CylinderGeometry(0, 10, 30, 4, 1);
     // const texture = new THREE.TextureLoader().load(images["wood-skin"]);
